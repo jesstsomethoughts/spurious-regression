@@ -90,10 +90,6 @@ def filter_dataset(targets_arr, preds_arr, top_filter, bottom_filter):
 def main():
     dataset = get_dataset() # Load dataset
 
-    ####################################
-    #### DEFINE LOSS WEIGHTING HERE ####
-    ####################################
-
     # Init model
     tok = AutoTokenizer.from_pretrained(args.repo, trust_remote_code=True) # Break up strings into tokens
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -140,10 +136,6 @@ def main():
         spear, _ = spearmanr(targets_arr, preds_arr)
         # Calculate MAE
         mae = np.mean(abs_differences)
-
-        ########################################
-        ### CALCULATE/ADD WEIGHTED LOSS HERE ###
-        ########################################
 
         # Save to results
         results[SPACE] = {'spearman': spear, 'mae': mae}
